@@ -1,0 +1,34 @@
+from instagrapi import Client
+
+# Στοιχεία σύνδεσης
+user_name = 'username'
+password = '******'
+
+# Δημιουργία client και σύνδεση
+client = Client()
+try:
+    client.login(user_name, password)
+    print("succes sign in")
+except Exception as e:
+    print(f"no sign in: {e}")
+
+
+# URL της ανάρτησης
+media_url = 'https://www.instagram.com/p/DBG3l7bxzjg/?img_index=1'
+
+# Μετατροπή του URL σε media_id (numeric form)
+media_id = client.media_pk_from_url(media_url)
+
+print("Media ID:", media_id)
+
+# Κάνε ένα σχόλιο για δοκιμή
+try:
+    client.media_comment(media_id, '@kleitsiotii_  @athina._k_')
+    print("succes comment")
+except Exception as e:
+    print(f"no comment: {e}")
+
+print("success")
+client.logout()
+ 
+

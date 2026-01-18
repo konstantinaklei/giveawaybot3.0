@@ -1,0 +1,54 @@
+from instagrapi import Client
+import time
+
+# Στοιχεία σύνδεσης
+user_name = 'username'
+password = '******'
+
+
+
+
+
+
+
+
+
+
+
+
+# Δημιουργία client και σύνδεση
+client = Client()
+try:
+    client.login(user_name, password)
+    print("Succes sign in")
+except Exception as e:
+    print(f"No sign in: {e}")
+
+# URL της ανάρτησης
+media_url = 'https://www.instagram.com/p/DKUZ_f6Mrs9/?img_index=1'
+
+# Μετατροπή του URL σε media_id (numeric form)
+media_id = client.media_pk_from_url(media_url)
+print("Media ID:", media_id)
+n=0
+# Κάνε συνεχόμενα σχόλια με διακοπή 3 δευτερολέπτων
+try:
+    while True:
+        # Πρώτο σχόλιο
+        client.media_comment(media_id, '  @kleitsiotii_  @athina._k_')
+        print("Succes comment ",n)
+        n+=1
+        # Αναμονή 3 δευτερολέπτων
+        time.sleep(2)
+        if(n>=8):
+            time.sleep(300)#perimene 5 lepta
+            n=0
+    
+
+
+except Exception as e:
+    print(f"No comment: {e}")
+finally:
+    client.logout()
+    print("Logged out")
+
